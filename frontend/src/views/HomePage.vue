@@ -112,7 +112,7 @@ export default {
     async checkConnection() {
       this.isLoading = true;
       try {
-        const response = await axios.get('http://localhost:5000/check-connection');
+        const response = await axios.get('https://lsbotbackend.onrender.com/check-connection');
         if (response.status === 200) {
           alert('connect success');
         }

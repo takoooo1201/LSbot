@@ -59,7 +59,7 @@
     },
     async created() {
       try {
-        const response = await axios.get('http://localhost:5000/todo');
+        const response = await axios.get('https://lsbotbackend.onrender.com/todo');
         const { data, explain } = response.data;
   
         this.dailyContent = data.map((post, index) => ({

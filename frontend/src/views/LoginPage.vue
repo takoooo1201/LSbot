@@ -24,7 +24,7 @@
     methods: {
       async handleLogin() {
         try {
-          const response = await axios.post('http://localhost:5000/login', {
+          const response = await axios.post('https://lsbotbackend.onrender.com/login', {
             username: this.username,
             password: this.password,
           });

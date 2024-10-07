@@ -53,7 +53,7 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get('http://localhost:5000/daily');
+      const response = await axios.get('https://lsbotbackend.onrender.com/daily');
       this.dailyContent = response.data;
     } catch (error) {
       console.error('Error fetching daily content:', error);
