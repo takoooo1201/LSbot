@@ -82,23 +82,23 @@ def todo():
         return jsonify({"message": str(e)}), 500
 
 
-@app.route('/test')
-def perform_comment_crawling():
-    for document in daily_collection.find():
-        aiClient = OpenAI(api_key=OPENAI_API_KEY)
-        response = aiClient.chat.completions.create(
-            model='ft:gpt-4o-2024-08-06:personal::AFkm0nkT',
-            messages=[
-                {'role': 'user', 'content': document["content"] + '\r\n這篇文章是否在討論地層下陷議題，請先回答是或否，接著再解釋為什麼'}
-            ],
-            max_tokens=1500
-        )
-        response_content = response.choices[0].message.content
-        first_two_characters = response_content[:2]
-        print(response_content[:20])
-        if "是" in first_two_characters:
-            print(f"Relevant document: {document["title"]}")
-    return "complete"
+# @app.route('/test')
+# def perform_comment_crawling():
+#     for document in daily_collection.find():
+#         aiClient = OpenAI(api_key=OPENAI_API_KEY)
+#         response = aiClient.chat.completions.create(
+#             model='ft:gpt-4o-2024-08-06:personal::AFkm0nkT',
+#             messages=[
+#                 {'role': 'user', 'content': document["content"] + '\r\n這篇文章是否在討論地層下陷議題，請先回答是或否，接著再解釋為什麼'}
+#             ],
+#             max_tokens=1500
+#         )
+#         response_content = response.choices[0].message.content
+#         first_two_characters = response_content[:2]
+#         print(response_content[:20])
+#         if "是" in first_two_characters:
+#             print(f"Relevant document: {document["title"]}")
+#     return "complete"
 
 
 if __name__ == '__main__':
