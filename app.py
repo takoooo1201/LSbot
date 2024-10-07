@@ -71,14 +71,14 @@ def todo():
             )
             response_content = response.choices[0].message.content
             first_two_characters = response_content[:2]
-            print(response_content[:10])
+            #print(response_content[:10])
             if "是" in first_two_characters:
                 daily_data.append(document)
                 explanations.append(response_content)
-                print(f"Relevant document: {document["title"]}")
+                #print(f"Relevant document: {document["title"]}")
         return jsonify({"explain": explanations, "data": daily_data}), 200
     except Exception as e:
-        print("An error occurred:", e)
+        #print("An error occurred:", e)
         return jsonify({"message": str(e)}), 500
 
 
