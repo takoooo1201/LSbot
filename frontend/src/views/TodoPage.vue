@@ -1,5 +1,6 @@
 <template>
     <div class="forum-container">
+      <a href="https://landsubsidencegpt.onrender.com" target="_blank" class="read-more">Responsebot</a>
       <h1>Content related to land subsidence</h1>
 
       <!-- Loading Spinner -->

@@ -79,21 +79,61 @@ export default {
   <div>
     <h2>Home</h2>
     <p>Welcome to the Home Page!</p>
-    
+    <p>this is a website designed to deal with the information about land subsidence on internet</p>
     <!-- Check MongoDB Connection Button -->
-    <button @click="checkConnection" class="textured-button" :disabled="isLoading">
-      <span v-if="isLoading" class="loader"></span>
-      <span v-else>Check MongoDB Connection</span>
-    </button>
+    <div class="buttons-column">
+      <button @click="checkConnection" class="textured-button" :disabled="isLoading">
+        <span v-if="isLoading" class="loader"></span>
+        <span v-else>Check MongoDB Connection</span>
+      </button>
+      <p>//check if the database is connected successfully</p>
 
-    <!-- Ping Responsebot Button -->
-    <div class="ping-responsebot-container">
+      <!-- Ping Responsebot Button -->
       <button @click="pingResponsebot" class="textured-button" :disabled="isPinging">
         <span v-if="isPinging" class="loader"></span>
         <span v-else>Ping Responsebot</span>
       </button>
       <span v-if="pingSuccess" class="check-mark">✅</span>
+      <p>//ping reponsebot </p>
+
+      <!-- Navigation Buttons -->
+      <button @click="redirectToDaily" class="textured-button">Daily</button>
+      <p>//show all the posts which are crawled down fron Dcard that day</p>
+      <button @click="redirectToTodoList" class="textured-button">To Do List</button>
+      <p>//only the posts which are related to land subsidence will be shown with AI explanation and sentiment analysis( filterd by the relation model GPT)</p>
+      <button @click="redirectToResponseGPT" class="textured-button">ResponseGPT</button>
+      <p>//A GPT which can generate official reponses according to the land subsidence posts</p>
+
     </div>
+    <!-- Check MongoDB Connection Button
+    <button @click="checkConnection" class="textured-button" :disabled="isLoading">
+      <span v-if="isLoading" class="loader"></span>
+      <span v-else>Check MongoDB Connection</span>
+    </button> -->
+
+    <!-- Ping Responsebot Button -->
+    <!-- <div class="ping-responsebot-container">
+      <button @click="pingResponsebot" class="textured-button" :disabled="isPinging">
+        <span v-if="isPinging" class="loader"></span>
+        <span v-else>Ping Responsebot</span>
+      </button>
+      <span v-if="pingSuccess" class="check-mark">✅</span>
+    </div> -->
+
+    <!-- Navigation Buttons -->
+    <!-- <div class="navigation-buttons">
+      <div>
+      <button @click="redirectToDaily" class="textured-button">Daily</button>
+      </div>
+      
+      <div>
+      <button @click="redirectToTodoList" class="textured-button">To Do List</button>
+      </div>
+      <div>
+      <button @click="redirectToResponseGPT" target="_blank" class="textured-button">ResponseGPT</button>
+      </div>
+    </div> -->
+
   </div>
 </template>
 
@@ -136,13 +176,29 @@ export default {
         this.isPinging = false; // Stop the loading state
       }
     },
+    redirectToDaily() {
+      this.$router.push('/daily');
+    },
+    redirectToTodoList() {
+      this.$router.push('/todo');
+    },
+    redirectToResponseGPT() {
+      window.location.href = 'https://landsubsidencegpt.onrender.com';
+    },
   },
 };
 </script>
 
 <style scoped>
+
+.buttons-column {
+  display: flex;
+  flex-direction: column; /* Align buttons in a column */
+  gap: 15px; /* Space between buttons */
+  margin-top: 20px;
+}
 .textured-button {
-  background: #4caf50;
+  background: #47974a;
   color: white;
   border: 2px solid #4caf50;
   padding: 10px 20px;
@@ -190,5 +246,12 @@ export default {
   font-size: 1.5em;
   color: green;
   margin-left: 10px;
+}
+
+.navigation-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  flex-wrap: wrap; /* Wrap buttons if the screen is small */
 }
 </style>

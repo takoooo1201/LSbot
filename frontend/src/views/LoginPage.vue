@@ -3,7 +3,9 @@
       <h2>Login</h2>
       <form @submit.prevent="handleLogin">
         <input v-model="username" type="text" placeholder="Username" />
+        <br>
         <input v-model="password" type="password" placeholder="Password" />
+        <br>
         <button type="submit">Login</button>
       </form>
       <p>{{ message }}</p>
