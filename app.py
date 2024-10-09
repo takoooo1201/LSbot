@@ -81,6 +81,9 @@ def todo():
         #print("An error occurred:", e)
         return jsonify({"message": str(e)}), 500
 
+@app.route('/ping', methods=['GET'])
+def ping():
+    return jsonify({"message": "backend activated"}), 200
 
 # @app.route('/test')
 # def perform_comment_crawling():

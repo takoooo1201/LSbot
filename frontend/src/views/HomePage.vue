@@ -96,6 +96,14 @@ export default {
       <span v-if="pingSuccess" class="check-mark">✅</span>
       <p>//ping reponsebot </p>
 
+
+      <!-- Ping Backend Button -->
+      <button @click="pingBackend" class="textured-button" :disabled="isPingingBackend">
+        <span v-if="isPingingBackend" class="loader"></span>
+        <span v-else>Ping Backend</span>
+      </button>
+      <p>//ping the backend to check if it is activated</p>
+
       <!-- Navigation Buttons -->
       <button @click="redirectToDaily" class="textured-button">Daily</button>
       <p>//show all the posts which are crawled down fron Dcard that day</p>
@@ -162,20 +170,37 @@ export default {
         this.isLoading = false;
       }
     },
-    async pingResponsebot() {
-      this.isPinging = true;
-      this.pingSuccess = false; // Reset success indicator before making the request
+    // async pingResponsebot() {
+    //   this.isPinging = true;
+    //   this.pingSuccess = false; // Reset success indicator before making the request
+    //   try {
+    //     // Perform a ping by making a GET request, without caring about the response
+    //     await axios.get('https://landsubsidencegpt.onrender.com', { timeout: 100 });
+    //     this.pingSuccess = true; // Indicate ping success
+    //   } catch {
+    //     // Optionally handle error (e.g., silently fail or provide minimal feedback)
+    //     this.pingSuccess = true; // Ensure no success mark if it failed
+    //   } finally {
+    //     this.isPinging = false; // Stop the loading state
+    //   }
+    // },
+    async pingBackend() {
+      this.isPingingBackend = true;
       try {
-        // Perform a ping by making a GET request, without caring about the response
-        await axios.get('https://landsubsidencegpt.onrender.com', { timeout: 100 });
-        this.pingSuccess = true; // Indicate ping success
-      } catch {
-        // Optionally handle error (e.g., silently fail or provide minimal feedback)
-        this.pingSuccess = true; // Ensure no success mark if it failed
+        const response = await axios.get('http://127.0.0.1:5000/ping');
+        if (response.status === 200) {
+          alert('backend activated');
+        }
+      } catch (error) {
+        alert(`Error: ${error.response?.data?.error || 'Ping failed'}`);
       } finally {
-        this.isPinging = false; // Stop the loading state
+        this.isPingingBackend = false;
       }
     },
+
+
+
+    // direct function
     redirectToDaily() {
       this.$router.push('/daily');
     },
