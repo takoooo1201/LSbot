@@ -153,6 +153,7 @@ export default {
     return {
       isLoading: false,
       isPinging: false,
+      isPingingBackend: false,
       pingSuccess: false,
     };
   },
