@@ -187,7 +187,7 @@ export default {
     async pingBackend() {
       this.isPingingBackend = true;
       try {
-        const response = await axios.get('http://127.0.0.1:5000/ping');
+        const response = await axios.get('https://lsbotbackend.onrender.com/ping');
         if (response.status === 200) {
           alert('backend activated');
         }
