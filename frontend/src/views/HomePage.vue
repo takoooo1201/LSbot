@@ -96,6 +96,13 @@ export default {
       <span v-if="pingSuccess" class="check-mark">✅</span>
       <p>//ping reponsebot </p>
 
+      <!-- Ping Chatbot Button -->
+      <button @click="pingChatbot" class="textured-button" :disabled="isPingingChatbot">
+        <span v-if="isPingingChatbot" class="loader"> {{ countdown }}s </span>
+        <span v-else>Ping Chatbot</span>
+      </button>
+      <p>//ping the chatbot to check if it is activated</p>
+
 
       <!-- Ping Backend Button -->
       <button @click="pingBackend" class="textured-button" :disabled="isPingingBackend">
@@ -106,7 +113,7 @@ export default {
 
       <!-- Navigation Buttons -->
       <button @click="redirectToDaily" class="textured-button">Daily</button>
-      <p>//show all the posts which are crawled down fron Dcard that day</p>
+      <p>//show all the posts which are crawled down from Dcard that day</p>
       <button @click="redirectToTodoList" class="textured-button">To Do List</button>
       <p>//only the posts which are related to land subsidence will be shown with AI explanation and sentiment analysis( filterd by the relation model GPT)</p>
       <button @click="redirectToResponseGPT" class="textured-button">ResponseGPT</button>
@@ -153,8 +160,10 @@ export default {
     return {
       isLoading: false,
       isPinging: false,
+      isPingingChatbot: false,
       isPingingBackend: false,
       pingSuccess: false,
+      countdown: 0,
     };
   },
   methods: {
@@ -176,15 +185,40 @@ export default {
       this.pingSuccess = false; // Reset success indicator before making the request
       try {
         // Perform a ping by making a GET request, without caring about the response
-        await axios.get('https://landsubsidencegpt.onrender.com', { timeout: 100 });
+        await axios.get('https://landsubsidencegpt.onrender.com', { timeout: 1000 });
         this.pingSuccess = true; // Indicate ping success
       } catch {
         // Optionally handle error (e.g., silently fail or provide minimal feedback)
-        this.pingSuccess = true; // Ensure no success mark if it failed
+        this.pingSuccess = false; // Ensure no success mark if it failed
       } finally {
         this.isPinging = false; // Stop the loading state
       }
     },
+
+    async pingChatbot() {
+      this.isPingingChatbot = true;
+      try {
+        await axios.get('https://landsubsidencegpt.onrender.com');
+        alert('chatbot activated');
+        this.startCountdown(30);
+      } catch (error) {
+        alert(`Error: ${error.response?.data?.error || 'Ping failed'}`);
+      }
+    },
+
+    startCountdown(seconds) {
+      this.countdown = seconds;
+      const interval = setInterval(() => {
+        this.countdown--;
+        if (this.countdown <= 0) {
+          clearInterval(interval);
+          this.isPingingChatbot = false;
+        }
+      }, 1000);
+    },
+
+
+
     async pingBackend() {
       this.isPingingBackend = true;
       try {
