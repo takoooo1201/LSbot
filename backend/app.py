@@ -14,7 +14,8 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # MongoDB Setup
-mongodb_uri = "mongodb+srv://tako1201:q4ZSsjP7A8j5gWNk@subsidencedata.a9e17.mongodb.net/?retryWrites=true&w=majority&appName=subsidenceData"
+# mongodb_uri = "mongodb+srv://tako1201:q4ZSsjP7A8j5gWNk@subsidencedata.a9e17.mongodb.net/?retryWrites=true&w=majority&appName=subsidenceData"
+mongodb_uri = os.getenv('MONGODB_URI')
 client = MongoClient(mongodb_uri)
 db = client["dcard"]
 daily_collection = db["from0813"]
@@ -84,6 +85,8 @@ def todo():
 @app.route('/ping', methods=['GET'])
 def ping():
     return jsonify({"message": "backend activated"}), 200
+
+#testing
 
 # @app.route('/test')
 # def perform_comment_crawling():

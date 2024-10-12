@@ -171,20 +171,20 @@ export default {
         this.isLoading = false;
       }
     },
-    // async pingResponsebot() {
-    //   this.isPinging = true;
-    //   this.pingSuccess = false; // Reset success indicator before making the request
-    //   try {
-    //     // Perform a ping by making a GET request, without caring about the response
-    //     await axios.get('https://landsubsidencegpt.onrender.com', { timeout: 100 });
-    //     this.pingSuccess = true; // Indicate ping success
-    //   } catch {
-    //     // Optionally handle error (e.g., silently fail or provide minimal feedback)
-    //     this.pingSuccess = true; // Ensure no success mark if it failed
-    //   } finally {
-    //     this.isPinging = false; // Stop the loading state
-    //   }
-    // },
+    async pingResponsebot() {
+      this.isPinging = true;
+      this.pingSuccess = false; // Reset success indicator before making the request
+      try {
+        // Perform a ping by making a GET request, without caring about the response
+        await axios.get('https://landsubsidencegpt.onrender.com', { timeout: 100 });
+        this.pingSuccess = true; // Indicate ping success
+      } catch {
+        // Optionally handle error (e.g., silently fail or provide minimal feedback)
+        this.pingSuccess = true; // Ensure no success mark if it failed
+      } finally {
+        this.isPinging = false; // Stop the loading state
+      }
+    },
     async pingBackend() {
       this.isPingingBackend = true;
       try {
